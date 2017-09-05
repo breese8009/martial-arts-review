@@ -1,0 +1,12 @@
+{
+  "name": "martial-arts-review",
+  "version": "1.0.0",
+  "description": "Web app to review different martial arts gyms and styles",
+  "main": "seed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Bryan & Chen",
+  "license": "ISC"
+}
