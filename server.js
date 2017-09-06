@@ -54,6 +54,6 @@ app.delete('/app/styles/:styleId/schools/:schoolId', controllers.schools.destroy
  **********/
 
 // listen on the port that Heroku prescribes (process.env.PORT) OR port 3000
-app.listen(process.env.PORT || 3000, function () {
-  console.log('Express server is up and running on http://localhost:3000/');
+app.listen(process.env.PORT || 4000, function () {
+  console.log('Express server is up and running on http://localhost:4000/');
 });
