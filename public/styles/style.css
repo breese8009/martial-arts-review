@@ -36,3 +36,22 @@ hr {
 	width:100%;
 	margin-top:20px;
 }
+
+.list-group {
+	margin-top:10px;
+}
+
+.card {
+	border:2px black solid;
+}
+
+footer {
+	height:100px;
+	background-color: blue;
+	color:white;
+}
+
+
+
+
+
