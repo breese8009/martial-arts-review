@@ -7,6 +7,26 @@ let db = require("../models");
 //GET /api/styles/:styleId/schools -- get all the schools of the specified style
 //    controllers.schools.index
 function index(req, res) {
+  console.log("Entering school index()");
+
+  db.Style.findById(req.params.styleId, function(err, foundStyle) {
+    if (err) {
+      console.log(`school index() failed to find the style ${req.params.styleId} from the db`);
+      res.send(404);
+    }
+
+    console.log(`found style: ${foundStyle} from the db`);
+
+    //building array of schools from array of school Ids
+    let schoolList =  foundStyle.schools.map(function(elem) {
+      db.School.findById(elem, function(err, school) {
+        if (!err) {
+          return school;
+        }
+      });
+    });
+    res.json(schoolList);
+  })
 
 }
 
