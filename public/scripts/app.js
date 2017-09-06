@@ -3,9 +3,12 @@ $(document).ready(function() {
 	$.ajax({
 		method:"GET",
 		url: '/api/styles',
-		success: function(style) {
-			renderStyles(style);
+		success: function(styles) {
+		  styles.forEach(function(style) {
+		  		renderStyles(style);
 			renderListStyle(style);
+		  })
+			
 		}
 	})
 
@@ -54,9 +57,10 @@ function renderStyles(style) {
 				</div>
 			</div>
 		</div>
+		<div>
+		<button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
 		</div>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
-	
+	</div>
 
 	`
 
