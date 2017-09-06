@@ -8,5 +8,10 @@
     "start": "node server.js"
   },
   "author": "Bryan & Chen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31"
+  }
 }
