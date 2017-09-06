@@ -29,7 +29,7 @@ function destroy(req, res) {
 }
 
 
-modules.export = {
+module.exports = {
   index: index,
   create: create,
   update: update,
