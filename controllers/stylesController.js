@@ -78,9 +78,10 @@ function update(req, res) {
 //DELETE /api/styles/:styleId -- delete a style
 //       controllers.styles.destroy
 function destroy(req, res) {
-  console.log("Entering style destroy()");
+  console.log("Entering style destroy(): style id = ${req.params.styldId");
 
   db.Style.findByIdAndRemove(req.params.styleId, function(err, removedStyle) {
+    console.log(removedStyle);
     if (err) {
       console.log(`style destroy() failed with err: ${err}`);
       res.send(404);

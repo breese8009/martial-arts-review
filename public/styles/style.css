@@ -39,6 +39,7 @@ hr {
 
 .list-group {
 	margin-top:10px;
+	margin-top:100px;
 }
 
 .card {
@@ -51,7 +52,9 @@ footer {
 	color:white;
 }
 
-
+.add-school {
+	width:100%;
+}
 
 
 

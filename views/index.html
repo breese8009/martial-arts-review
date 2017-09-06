@@ -37,24 +37,24 @@
 <!-- adding style inside header -->
 <div class="container">
 <h1 class="h1Header">Martial Arts School Reviews</h1>
-<form>
+<form class="addStyles">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4" class="col-form-label headerFormLabel">Type of Martial Arts</label>
-      <input type="text" class="form-control headerForm" id="" placeholder="Type">
+      <input type="text" class="form-control headerForm" name="type" placeholder="Type">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4" class="col-form-label headerFormLabel">Wikipedia Link</label>
-      <input type="text" class="form-control headerForm" id="" placeholder="Link">
+      <input type="text" class="form-control headerForm" name="link" placeholder="Link">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress" class="col-form-label headerFormLabel">Description of Art</label>
-    <input type="text" class="form-control headerForm" id="" placeholder="Description">
+    <input type="text" class="form-control headerForm" name="description" placeholder="Description">
   </div>
   <div class="form-group">
     <label for="inputAddress2" class="col-form-label headerFormLabel">Comments</label>
-    <input type="text" class="form-control headerForm" id="" placeholder="Type of art">
+    <input type="text" class="form-control headerForm" name="comments" placeholder="Type of art">
   </div>
   <button type="submit" class="btn btn-primary">Create style</button>
 </form>
@@ -70,23 +70,26 @@
 <div class="col-sm-6">
 <h1>Martial Arts Styles</h1>
 <hr>
-<div class="list-group">
-  <a href="#" class="list-group-item active">
+<div class="list-group-style">
+<!--   <a href="#" class="list-group-item active">
    Muay Thai
   </a>
   <a href="#" class="list-group-item list-group-item-action">Brazilian Jiu Jitsu</a>
   <a href="#" class="list-group-item list-group-item-action">Kung Fu</a>
   <a href="#" class="list-group-item list-group-item-action">Karate</a>
   <a href="#" class="list-group-item list-group-item-action disabled">Judo</a>
-
-
+ -->
+</div>
 
 <!-- Style information -->
 <div class="card bg-light mb-3 styleDisplay">
-  <div class="card-header"><h1>Type of art</h1></div>
+
+<!-- this is appending to styleDisplay div in app.js -->
+<!--   <div class="card-header"><h1>Type of art</h1></div>
   <div class="card-body">
     <p class="card-title">Description: </p>
     <p class="card-text">Comments: </p>
+    <p class="card-text"><a href="#">Wiki</a></p>
     <div class="row">
     <div class="col-sm-2">
 <button class="btn-danger">Delete</button>
@@ -96,10 +99,10 @@
 </div>
 </div>
   </div>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
-</div>
+  <button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button> -->
+</div> 
 
-</div>
+
 
 </div>
 <div class="col-sm-6">
