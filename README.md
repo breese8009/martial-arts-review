@@ -1,4 +1,4 @@
-# Bryan & Chen: Todo - modified the below line(from my previous bird API) for a small image logo for our README.md
+# Bryan & Chen: todo - modified the below line(from my previous bird API) for a small image logo for our README.md
 # <img src="https://cloud.githubusercontent.com/assets/7833470/10423298/ea833a68-7079-11e5-84f8-0a925ab96893.png" width="60"> Bird API
 
 Welcome to the 'Martial Arts Review Page'. You can use it to create and maintain all different Martial Arts Styles and their prominent schools. Each Martial Arts Style can have the following informations:

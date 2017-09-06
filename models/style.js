@@ -13,4 +13,4 @@ let StyleSchema = new Schema({
 
 let Style = mongoose.model("Style", StyleSchema);
 
-module.exports Style;
+module.exports = Style;
