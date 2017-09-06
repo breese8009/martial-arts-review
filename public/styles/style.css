@@ -1,3 +1,57 @@
-body {
-	background-color: black;
+header {
+	
+	background-image: url("https://images.alphacoders.com/174/thumb-1920-174041.jpg");
+
 }
+
+.headerFormLabel {
+	color:white;
+}
+
+.inputs {
+	margin-left:500px;
+}
+
+hr {
+	background-color: black;
+	height:3px;
+}
+
+.h1Header {
+	color:white;
+	text-align: center;
+	font-size: 72px;
+}
+
+.headerForm {
+	opacity: 0.50;
+	border:3px blue solid;
+}
+
+.styleDesc {
+	width:100%;
+}
+
+.styleDisplay {
+	width:100%;
+	margin-top:20px;
+}
+
+.list-group {
+	margin-top:10px;
+}
+
+.card {
+	border:2px black solid;
+}
+
+footer {
+	height:100px;
+	background-color: blue;
+	color:white;
+}
+
+
+
+
+
