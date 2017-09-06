@@ -31,6 +31,153 @@
 </head>
 <body>
 
+<header>
+
+
+<!-- adding style inside header -->
+<div class="container">
+<h1 class="h1Header">Martial Arts School Reviews</h1>
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4" class="col-form-label headerFormLabel">Type of Martial Arts</label>
+      <input type="text" class="form-control headerForm" id="" placeholder="Type">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4" class="col-form-label headerFormLabel">Wikipedia Link</label>
+      <input type="text" class="form-control headerForm" id="" placeholder="Link">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress" class="col-form-label headerFormLabel">Description of Art</label>
+    <input type="text" class="form-control headerForm" id="" placeholder="Description">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2" class="col-form-label headerFormLabel">Comments</label>
+    <input type="text" class="form-control headerForm" id="" placeholder="Type of art">
+  </div>
+  <button type="submit" class="btn btn-primary">Create style</button>
+</form>
+</div>
+</header>
+<hr>
+ 
+
+
+  <!-- Different styles display -->
+<div class="container">
+<div class="row">
+<div class="col-sm-6">
+<h1>Martial Arts Styles</h1>
+<hr>
+<div class="list-group">
+  <a href="#" class="list-group-item active">
+   Muay Thai
+  </a>
+  <a href="#" class="list-group-item list-group-item-action">Brazilian Jiu Jitsu</a>
+  <a href="#" class="list-group-item list-group-item-action">Kung Fu</a>
+  <a href="#" class="list-group-item list-group-item-action">Karate</a>
+  <a href="#" class="list-group-item list-group-item-action disabled">Judo</a>
+
+
+
+<!-- Style information -->
+<div class="card bg-light mb-3 styleDisplay">
+  <div class="card-header"><h1>Type of art</h1></div>
+  <div class="card-body">
+    <p class="card-title">Description: </p>
+    <p class="card-text">Comments: </p>
+    <div class="row">
+    <div class="col-sm-2">
+<button class="btn-danger">Delete</button>
+</div>
+<div class="col-sm-2">
+<button class="btn-info">edit</button>
+</div>
+</div>
+  </div>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
+</div>
+
+</div>
+
+</div>
+<div class="col-sm-6">
+<h1>Martial Arts Schools</h1>
+<hr>
+
+<div class="list-group">
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top" src="https://images4.alphacoders.com/115/115208.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h4 class="card-title">School Name</h4>
+    <p class="card-text">Address:</p>
+    <a href="#" class="btn btn-primary">Link</a>
+    <a href="#" class="btn btn-info">Edit</a>
+    <a href="#" class="btn btn-danger">Delete</a>
+  </div>
+</div>
+</div>
+
+<div class="list-group">
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top" src="https://images4.alphacoders.com/115/115208.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h4 class="card-title">School Name</h4>
+    <p class="card-text">Address: </p>
+    <a href="#" class="btn btn-primary">Link</a>
+    <a href="#" class="btn btn-info">Edit</a>
+    <a href="#" class="btn btn-danger">Delete</a>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<hr>
+
+
+<!-- create school modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Martial Arts School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">School name</label>
+            <input type="text" class="form-control" id="">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Address</label>
+             <input type="text" class="form-control" id="">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Link</label>
+            <input type="text" class="form-control" id="">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Image</label>
+            <input type="text" class="form-control" id="">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add school</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
