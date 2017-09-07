@@ -98,7 +98,7 @@ function destroy(req, res) {
     });
 
     //remove the style
-    db.Style.remove(req.params.styleId, function(err, deletedStyle) {
+    db.Style.findByIdAndRemove(req.params.styleId, function(err, deletedStyle) {
       if (err) {
         console.log(`failed to remove style ${req.params.styleId} from db`);
         res.send(404);
