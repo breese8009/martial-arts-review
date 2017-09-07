@@ -78,17 +78,35 @@ function update(req, res) {
 //DELETE /api/styles/:styleId -- delete a style
 //       controllers.styles.destroy
 function destroy(req, res) {
-  console.log("Entering style destroy(): style id = ${req.params.styldId");
+  console.log("Entering style destroy(): style id = ${req.params.styleId");
 
-  db.Style.findByIdAndRemove(req.params.styleId, function(err, removedStyle) {
-    console.log(removedStyle);
+  db.Style.findById(req.params.styleId, function(err, style) {
     if (err) {
-      console.log(`style destroy() failed with err: ${err}`);
+      console.log(`failed to find style ${req.params.styleId} from db`);
       res.send(404);
     }
 
-    console.log(`successfully destroy style: ${removedStyle}`);
-    res.json(removedStyle);
+    console.log(`found style ${style} from db`);
+
+    //remove all the schools of this style from db before removing the style
+    style.schools.forEach(function(schoolId) {
+      db.School.findByIdAndRemove(schoolId, function(err, school) {
+        if (err) {
+          console.log(`failed to remove school id ${schoolId} from db`);
+        }
+      });
+    });
+
+    //remove the style
+    db.Style.remove(req.params.styleId, function(err, deletedStyle) {
+      if (err) {
+        console.log(`failed to remove style ${req.params.styleId} from db`);
+        res.send(404);
+      }
+
+      console.log(`successfully removed style ${deletedStyle} from db`);
+      res.json(deletedStyle);
+    });
   });
 }
 
