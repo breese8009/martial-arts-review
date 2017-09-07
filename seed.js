@@ -31,6 +31,13 @@ stylesList.push({
 
 console.log(stylesList);
 
-
-
-
+db.Style.remove({}, function(err, styles) {
+  db.Style.create(stylesList, function(err, styles) {
+    if (err) {
+      console.log("Seeding styleList failed: err = ${err}");
+      res.send(404);
+    }
+    console.log("Seeding styleList successful");
+    process.exit();
+  });
+})
