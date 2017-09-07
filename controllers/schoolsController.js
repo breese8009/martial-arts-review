@@ -4,6 +4,15 @@
 
 let db = require("../models");
 
+//GET /api/schools -- get all schools(not style-dependent)
+function getallschools(req, res) {
+  console.log("Engering school getallschools()");
+
+  db.School.find({}, function(err, schools) {
+    res.json(schools);
+  });
+}
+
 //GET /api/styles/:styleId/schools -- get all the schools of the specified style
 //    controllers.schools.index
 function index(req, res) {
@@ -134,6 +143,7 @@ function destroy(req, res) {
 
 
 module.exports = {
+  getallschools: getallschools,
   index: index,
   create: create,
   update: update,

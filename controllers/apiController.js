@@ -12,6 +12,7 @@ function index(req, res) {
       {method: "POST", path: "/api/styles", description: "Add a new Martial Arts Style"},
       {method: "PUT", path: "/api/styles/:styleId", description: "Modify a previously added Martial Arts Style"},
       {method: "DELETE", path: "/api/styles/:styleId", description: "Delete a specified Martial Arts Style"},
+      {method: "GET", path: "/api/schools", description: "Show all Martial Arts Schools"},
       {method: "GET", path: "/api/styles/:styleId/schools", description: "Show all schools of a specified Martial Arts Style"},
       {method: "POST", path: "/api/styles/:styleId/schools", description: "Add a school to a specified Martial Arts Style"},
       {method: "PUT", path: "/api/styles/:styleId/schools/:schoolId", description: "Modify a school of a specified Martial Arts Style"},

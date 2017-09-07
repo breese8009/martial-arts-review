@@ -44,6 +44,7 @@ app.put('/api/styles/:styleId', controllers.styles.update); // edit a style
 app.delete('/api/styles/:styleId', controllers.styles.destroy); // delete a style
 
 //school ROUTES
+app.get('/api/schools', controllers.schools.getallschools);
 app.get('/api/styles/:styleId/schools', controllers.schools.index); //get all schools of a style
 app.post('/api/styles/:styleId/schools', controllers.schools.create); //create a school for a style
 app.put('/app/styles/:styleId/schools/:schoolId', controllers.schools.update); //edit a school of the specified style
