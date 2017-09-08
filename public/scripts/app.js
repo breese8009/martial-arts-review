@@ -196,13 +196,16 @@ function addSchool(e) {
 	e.preventDefault();
 
 	let formData = $(this).serialize();
+
 	let styleId = $('.add-school').data('id');
+	console.log(styleId)
 	$.ajax({
 		method: "POST",
 		url: '/api/styles/'+styleId+'/schools',
 		data: formData,
 		success: renderSchool
 })
+
 }
 
 
