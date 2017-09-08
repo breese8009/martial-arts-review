@@ -172,7 +172,7 @@ $.ajax({
 
 // schools app.js
 
-function addSchool(school) {
+function renderSchool(school) {
 	let html = `
 			<div class="list-group" data-id="${school._id}">
 <div class="card" style="width: 20rem;">
@@ -196,15 +196,13 @@ function addSchool(e) {
 	e.preventDefault();
 
 	let formData = $(this).serialize();
-	
-// 	$.ajax({
-// 		method: "POST",
-// 		url: '/api/styles/:styleId/schools',
-// 		data: formData,
-// 		success: function(data) {
-// 			console.log(data);
-// 	}
-// })
+	let styleId = $('.add-school').data('id');
+	$.ajax({
+		method: "POST",
+		url: '/api/styles/'+styleId+'/schools',
+		data: formData,
+		success: renderSchool
+})
 }
 
 
