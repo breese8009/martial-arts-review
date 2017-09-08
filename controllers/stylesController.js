@@ -23,7 +23,7 @@ function create(req, res) {
   db.Style.create(req.body, function(err, createdStyle) {
     if (err) {
       console.log("style created failed");
-      res.send(404);
+      res.sendStatus(404);
     }
 
     console.log(`successfully created a style: ${createdStyle}`);
@@ -42,7 +42,7 @@ function show(req, res) {
       console.log(`style id: ${req.params.styleId} not found`);
     }
 
-    console.log(`db returned with style info: ${style}`).
+    console.log(`db returned with style info: ${style}`);
     res.json(style);
   });
 }
@@ -52,12 +52,11 @@ function show(req, res) {
 //    controllers.styles.update
 function update(req, res) {
   db.Style.findById(req.params.styleId, function(err, foundStyle) {
-    
+
     if (err) {
-      res.send(404);
+      res.sendStatus(404);
     }
 
-   
     // populate the style with the new info
     console.log(foundStyle.type)
     foundStyle.type = req.body.type;
@@ -68,7 +67,7 @@ function update(req, res) {
     foundStyle.save(function(err, savedStyle) {
       if (err) {
         console.log(`style update() failed db save with err: ${err}`);
-        res.send(404);
+        res.sendStatus(404);
       }
 
       console.log(`successfully updated style as ${savedStyle}`);
@@ -88,7 +87,7 @@ function destroy(req, res) {
   db.Style.findById(req.params.styleId, function(err, style) {
     if (err) {
       console.log(`failed to find style ${req.params.styleId} from db`);
-      res.send(404);
+      res.sendstatus(404);
     }
 
     console.log(`found style ${style} from db`);
@@ -106,7 +105,7 @@ function destroy(req, res) {
     db.Style.findByIdAndRemove(req.params.styleId, function(err, deletedStyle) {
       if (err) {
         console.log(`failed to remove style ${req.params.styleId} from db`);
-        res.send(404);
+        res.sendstatus(404);
       }
 
       console.log(`successfully removed style ${deletedStyle} from db`);

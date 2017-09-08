@@ -7,7 +7,7 @@ var stylesList =[];
 stylesList.push({
               type: 'Muay Thai',
               link: '#',
-              description: 'This is a stand up type fights style, using knees, elboes, and kicks',
+              description: 'This is a stand up type fights style, using knees, elbows, and kicks',
               comments: 'Rough/painful style'
             });
 stylesList.push({
@@ -31,6 +31,15 @@ stylesList.push({
 
 console.log(stylesList);
 
+db.School.remove({}, function(err, school) {
+  if (err) {
+    console.log("failed to wipe out schools from seeding.js");
+  }
+  else {
+    console.log("successfully wiped out all schools from seeding.js");
+  }
+});
+
 db.Style.remove({}, function(err, styles) {
   db.Style.create(stylesList, function(err, styles) {
     if (err) {
@@ -40,4 +49,4 @@ db.Style.remove({}, function(err, styles) {
     console.log("Seeding styleList successful");
     process.exit();
   });
-})
+});
