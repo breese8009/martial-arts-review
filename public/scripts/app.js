@@ -4,11 +4,17 @@ $(document).ready(function() {
 		method:"GET",
 		url: '/api/styles',
 		success: function(styles) {
-		  styles.forEach(function(style) {
+		  	styles.forEach(function(style) {
 		  		renderStyles(style);
-			renderListStyle(style);
-		  })
-			
+				renderListStyle(style);
+		  	})
+
+		  	$('.add-school').on('click', function() {
+		       let styleId = $(this).closest('.styleClass').data('styleId');
+		      // $('#exampleModal').modal();
+		      renderAddschoolModal(styleId)
+			});
+			$('.save-school').on('click', handleSaveSchoolClick);
 		}
 	})
 
@@ -16,14 +22,16 @@ $(document).ready(function() {
 	$('.styleDisplay').on('click', '.delete-style', deletingStyle);
 	$('.styleDisplay').on('click', ".edit-style", handleStyleEditClick);
 	$('.styleDisplay').on('click', '.save-style', handleSaveStyleClick);
-	$('.forms').on('submit', addSchool);
-	$('.list-group-style').on('click', '.list-group-item', activeStyles)
+	$('.school-form').on('submit', addSchool);
+	$('.list-group-style').on('click', '.list-group-item', handleSaveSchoolClick);
+	
+
 });
 
 
 function addingStyle(e) {
 	e.preventDefault();
-
+console.log('click');
 	let formData = $(this).serialize();
 	console.log(formData);
 	$.ajax({
@@ -41,11 +49,11 @@ function addingStyle(e) {
 
 
 function renderStyles(style) {
-	console.log(style._id);
+	
 	let styleHtml = `
 	<!-- Style information -->
 
-	<div class="card-header styleClass" data-styleid="${style._id}"><h1>${style.type}</h1>
+	<div class="card-header styleClass" data-style-id="${style._id}"><h1>${style.type}</h1>
 		<div class="card-body-style">
 			<p class="card-title style-desc">${style.description}</p>
 			<p class="card-text style-comm">${style.comments}</p>
@@ -61,7 +69,7 @@ function renderStyles(style) {
 			</div>
 		</div>
 		<div>
-		<button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
+		<button type="button" class="btn btn-primary add-school" data-id="${style._id}" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
 		</div>
 	</div>
 
@@ -85,17 +93,38 @@ function renderListStyle(style) {
 
 
 
-function activeStyles(e) {
+function selectStyleHandler(e) {
     e.preventDefault();
+    console.log(`i got here`)
     let style = $(this).data('id');
-    let currentElem = $('.list-group-item[data-id='+style+']');
-    $(this).parent().children().removeClass("active");
-    currentElem.addClass('active');
+    // let currentElem = $('.list-group-item[data-id='+style+']');
+
+    let newActElem = $('.list-group-item[data-id='+style+']');
+    let oldActElem = $(this).parent().children('.active');
+
+console.log(newActElem);
+console.log(oldActElem);
+
+
+    // $(this).parent().children().removeClass("active");
+    // let currentActiveElem = $(this).parent().children('.active');
+   
+    // currentElem.addClass('active');
+    newActElem.addClass('active');
+  
 
     $('.styleDisplay .styleClass').not('[data-styleid=' + style +']').fadeOut();
     $('.styleDisplay .styleClass[data-styleid=' + style +']').fadeIn();
 
+ //    $.ajax({
+	// 	method:"GET",
+	// 	url: '/api/styles/'+styleId+'/schools',
+	// 	success: renderSchools
+	// })
+
 }
+
+
 	
 
 	
@@ -172,7 +201,8 @@ $.ajax({
 
 // schools app.js
 
-function addSchool(school) {
+function renderSchools(school) {
+
 	let html = `
 			<div class="list-group" data-id="${school._id}">
 <div class="card" style="width: 20rem;">
@@ -191,20 +221,77 @@ function addSchool(school) {
 }
 
 
+function renderAddschoolModal(styleId) {
+  let html = `
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Martial Arts School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="school-form">
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">School name</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Address</label>
+             <input type="text" class="form-control" name="address">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Link</label>
+            <input type="text" class="form-control" name="link">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Image</label>
+            <input type="text" class="form-control" name="image">
+          </div>
+
+
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary save-school" data-style-id="${styleId}">Save school</button>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+`
+$('body').append(html);
+
+}
+
+
 
 function addSchool(e) {
 	e.preventDefault();
-
 	let formData = $(this).serialize();
 	
-// 	$.ajax({
-// 		method: "POST",
-// 		url: '/api/styles/:styleId/schools',
-// 		data: formData,
-// 		success: function(data) {
-// 			console.log(data);
-// 	}
-// })
+let styleId = $('.add-school').data('id');
+console.log(styleId);
+	$.ajax({
+		method: "POST",
+		url: '/api/styles/'+styleId+ '/schools',
+		data: formData,
+		success: renderSchools
+})
+
+	
+}
+
+
+function handleSaveSchoolClick(e) {
+	e.preventDefault();
+	
+	console.log('clicked');
 }
 
 
