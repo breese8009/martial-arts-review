@@ -12,6 +12,7 @@ function index(req, res) {
   });
 }
 
+
 //POST /api/styles -- add a new style to db
 //     controllers.styles.create
 function create(req, res) {
@@ -30,6 +31,7 @@ function create(req, res) {
   });
 }
 
+
 //GET /api/styles/:styleId -- get a style based on the styleId
 //    controllers.styles.show
 function show(req, res) {
@@ -40,30 +42,29 @@ function show(req, res) {
       console.log(`style id: ${req.params.styleId} not found`);
     }
 
-    console.log(`db returned with style info: ${style}`).
+    console.log(`db returned with style info: ${style}`);
     res.json(style);
   });
 }
 
+
 //PUT /api/styles/:styleId -- edit a style
 //    controllers.styles.update
 function update(req, res) {
-  console.log("Entering style update()");
-
   db.Style.findById(req.params.styleId, function(err, foundStyle) {
+
     if (err) {
-      console.log(`style updat() failed, style id: ${req.params.styleId} not found`);
       res.send(404);
     }
 
-    console.log(`db returned with style: ${foundStyle}`);
-    //populate the style with the new info
+    // populate the style with the new info
+    console.log(foundStyle.type)
     foundStyle.type = req.body.type;
     foundStyle.description = req.body.description;
     foundStyle.comments = req.body.comments;
     foundStyle.link = req.body.link;
 
-    db.Style.save(function(err, savedStyle) {
+    foundStyle.save(function(err, savedStyle) {
       if (err) {
         console.log(`style update() failed db save with err: ${err}`);
         res.send(404);
@@ -74,6 +75,9 @@ function update(req, res) {
     });
   });
 }
+
+
+
 
 //DELETE /api/styles/:styleId -- delete a style
 //       controllers.styles.destroy
