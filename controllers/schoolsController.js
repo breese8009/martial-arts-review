@@ -27,6 +27,7 @@ function index(req, res) {
       if (err) {
         console.log(`school index(): err = ${err}`);
         res.sendStatus(404);
+        return;
       }
       res.json(style.schools);
     });
