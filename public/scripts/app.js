@@ -17,6 +17,7 @@ $(document).ready(function() {
 	$('.styleDisplay').on('click', ".edit-style", handleStyleEditClick);
 	$('.styleDisplay').on('click', '.save-style', handleSaveStyleClick);
 	$('.forms').on('submit', addSchool);
+	$('.list-group-style').on('click', '.list-group-item', activeStyles)
 });
 
 
@@ -40,8 +41,7 @@ function addingStyle(e) {
 
 
 function renderStyles(style) {
-
-
+	console.log(style._id);
 	let styleHtml = `
 	<!-- Style information -->
 
@@ -72,11 +72,13 @@ function renderStyles(style) {
 
 
 
-function renderListStyle(style) {
 
+
+function renderListStyle(style) {
 	let styleHtml=`
-	<a href="#" class="list-group-item list-group-item-action">${style.type}</a>
+	<a href="#" class="list-group-item list-group-item-action" data-id="${style._id}">${style.type}</a>
 	`
+
 	$('.list-group-style').prepend(styleHtml);
 
 }
@@ -84,6 +86,18 @@ function renderListStyle(style) {
 
 
 
+function activeStyles(e) {
+	e.preventDefault();
+	let style = $(this).data('id');
+	let currentElem = $('.list-group-item[data-id='+style+']');
+$(this).parent().children().removeClass("active");
+currentElem.addClass('active');
+console.log($('.styleClass').data('styleid'));
+
+}
+	
+
+	
 function deletingStyle(e) {
 	e.preventDefault();
 let styleId = $(this).attr("data-id");
@@ -100,6 +114,9 @@ $.ajax({
 	}
 })
 }
+
+
+
 
 function handleStyleEditClick(e) {
 let styleId = $(this).attr("data-id");
@@ -123,6 +140,11 @@ $(this).toggleClass('save-edit');
 $('.save-style[data-id='+styleId+']').toggleClass('save-edit');
 
 }
+
+
+
+
+
 
 function handleSaveStyleClick(e) {
 let styleId = $(this).attr("data-id");
@@ -171,7 +193,17 @@ function addSchool(school) {
 
 function addSchool(e) {
 	e.preventDefault();
-	console.log("works")
+
+	let formData = $(this).serialize();
+	
+// 	$.ajax({
+// 		method: "POST",
+// 		url: '/api/styles/:styleId/schools',
+// 		data: formData,
+// 		success: function(data) {
+// 			console.log(data);
+// 	}
+// })
 }
 
 
