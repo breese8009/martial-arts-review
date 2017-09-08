@@ -6,9 +6,13 @@ let db = require("../models");
 
 //GET /api/schools -- get all schools(not style-dependent)
 function getallschools(req, res) {
-  console.log("Engering school getallschools()");
+  console.log("Entering school getallschools()");
 
   db.School.find({}, function(err, schools) {
+    if (err) {
+      console.log(`school getallschools(): found no school in db`);
+      res.sendStatus(404);
+    }
     res.json(schools);
   });
 }
@@ -109,6 +113,8 @@ function destroy(req, res) {
     //loop search for the school in array of schools in the style
     //once found, remove it from db and the school array in the style
     //then update the style in the db
+    let foundMatch = false;
+
     for(let i = 0; i < style.schools.length; i++) {
       console.log(`style.schools[${i}] = ${style.schools[i]}`);
       if (req.params.schoolId == style.schools[i]) {
@@ -118,17 +124,21 @@ function destroy(req, res) {
             console.log(`failed to remove school id ${req.params.schoolId} from db`);
             res.send(404);
           }
-          
+
           style.schools.splice(i, 1);  //remove the deleted school from style
           style.save();  //update style in the db
           console.log(`successfully deleted school ${removedSchool}`);
           res.json(removedSchool);
         });
+        foundMatch = true;
+        break; //already found the match. no need to loop further.
       }
     } // for
 
-    console.log(`school NOT deleted from db. Did not find a match in style's school array`);
-    res.sendStatus(404);
+    if (!foundMatch) {
+      console.log(`school NOT deleted from db. Did not find a match in style's school array`);
+      res.sendStatus(404);
+    }
   });
 }
 
