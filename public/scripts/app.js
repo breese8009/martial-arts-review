@@ -85,14 +85,15 @@ function renderListStyle(style) {
 
 
 
-
 function activeStyles(e) {
-	e.preventDefault();
-	let style = $(this).data('id');
-	let currentElem = $('.list-group-item[data-id='+style+']');
-$(this).parent().children().removeClass("active");
-currentElem.addClass('active');
-console.log($('.styleClass').data('styleid'));
+    e.preventDefault();
+    let style = $(this).data('id');
+    let currentElem = $('.list-group-item[data-id='+style+']');
+    $(this).parent().children().removeClass("active");
+    currentElem.addClass('active');
+
+    $('.styleDisplay .styleClass').not('[data-styleid=' + style +']').fadeOut();
+    $('.styleDisplay .styleClass[data-styleid=' + style +']').fadeIn();
 
 }
 	
