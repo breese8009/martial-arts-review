@@ -18,29 +18,14 @@ function getallschools(req, res) {
 function index(req, res) {
   console.log("Entering school index()");
 
-  db.Style.findById(req.params.styleId, function(err, foundStyle) {
-    if (err) {
-      console.log(`school index() failed to find the style ${req.params.styleId} from the db`);
-      res.send(404);
-    }
-
-    console.log(`found style: ${foundStyle} from the db`);
-
-    //building array of schools from array of school Ids
-    let schoolList = [];
-
-    foundStyle.schools.forEach(function(schoolId) {
-      db.School.findById(schoolId, function(err, school) {
-        if (!err) {
-          schoolList.push(school);
-        }
-      });
+  db.Style.findById(req.params.styleId).populate('schools')
+    .exec(function(err, style) {
+      if (err) {
+        console.log(`school index(): err = ${err}`);
+        res.send(404);
+      }
+      res.json(style.schools);
     });
-
-    console.log(`school index(): style = "${foundStyle}", schools = ${schoolList}`);
-    console.log("school index(): successful");
-    res.json(schoolList);
-  });
 }
 
 //POST /api/styles/:styleId/schools -- create a school then add it to a style
@@ -65,6 +50,7 @@ function create(req, res) {
 
       console.log(`found style ${style} for new school ${newSchool}.`);
       style.schools.push(newSchool);
+      style.save();
       console.log("school create(): successful");
       res.json(newSchool);
     });
@@ -114,32 +100,35 @@ function destroy(req, res) {
   db.Style.findById(req.params.styleId, function(err, style) {
     if (err) {
       console.log(`failed to fecth the style(id=${req.params.styleId}) from db`);
-      res.send(school); //return it anyway since it's gone from db
+      res.send(404);
     }
 
-    console.log(`found style(id=${req.params.styleId}) from db`);
+    console.log(`found style ${style}) from db`);
+    console.log(`attempt removing school id ${req.params.schoolId} from the style`);
 
     //loop search for the school in array of schools in the style
     //once found, remove it from db and the school array in the style
     //then update the style in the db
     for(let i = 0; i < style.schools.length; i++) {
-      if (req.params.schoolId === style.schools[i]._id) {
+      console.log(`style.schools[${i}] = ${style.schools[i]}`);
+      if (req.params.schoolId == style.schools[i]) {
+        console.log(`school id match found in style`);
         db.School.findByIdAndRemove(req.params.schoolId, function(err, removedSchool) {
           if (err) {
             console.log(`failed to remove school id ${req.params.schoolId} from db`);
             res.send(404);
           }
+          
+          style.schools.splice(i, 1);  //remove the deleted school from style
+          style.save();  //update style in the db
+          console.log(`successfully deleted school ${removedSchool}`);
+          res.json(removedSchool);
         });
-
-        style.schools.splice(i, 1);  //remove the deleted school from style
-        style.save();  //update style in the db
-        console.log(`successfully deleted school ${school}`);
-        res.json(removedSchool);
       }
     } // for
 
     console.log(`school NOT deleted from db. Did not find a match in style's school array`);
-    res.send(404);
+    res.sendStatus(404);
   });
 }
 
