@@ -9,12 +9,12 @@ $(document).ready(function() {
 				renderListStyle(style);
 		  	})
 
-		  	$('.add-school').on('click', function() {
-		       let styleId = $(this).closest('.styleClass').data('styleId');
-		      // $('#exampleModal').modal();
-		      renderAddschoolModal(styleId)
-			});
-			$('.save-school').on('click', handleSaveSchoolClick);
+		 //  	$('.add-school').on('click', function() {
+		 //       let styleId = $(this).closest('.styleClass').data('styleId');
+		 //      // $('#exampleModal').modal();
+		 //      renderAddschoolModal(styleId)
+			// });
+			// $('.save-school').on('click', handleSaveSchoolClick);
 		}
 	})
 
@@ -23,7 +23,7 @@ $(document).ready(function() {
 	$('.styleDisplay').on('click', ".edit-style", handleStyleEditClick);
 	$('.styleDisplay').on('click', '.save-style', handleSaveStyleClick);
 	$('.school-form').on('submit', addSchool);
-	$('.list-group-style').on('click', '.list-group-item', handleSaveSchoolClick);
+	$('.list-group-style').on('click', '.list-group-item', selectStyleHandler);
 	
 
 });
@@ -97,30 +97,21 @@ function selectStyleHandler(e) {
     e.preventDefault();
     console.log(`i got here`)
     let style = $(this).data('id');
-    // let currentElem = $('.list-group-item[data-id='+style+']');
+    let currentElem = $('.list-group-item[data-id='+style+']');
 
-    let newActElem = $('.list-group-item[data-id='+style+']');
-    let oldActElem = $(this).parent().children('.active');
-
-console.log(newActElem);
-console.log(oldActElem);
-
-
-    // $(this).parent().children().removeClass("active");
-    // let currentActiveElem = $(this).parent().children('.active');
+    $(this).parent().children().removeClass("active");
+    let currentActiveElem = $(this).parent().children('.active');
    
-    // currentElem.addClass('active');
-    newActElem.addClass('active');
-  
+    currentElem.addClass('active');
 
     $('.styleDisplay .styleClass').not('[data-styleid=' + style +']').fadeOut();
     $('.styleDisplay .styleClass[data-styleid=' + style +']').fadeIn();
 
- //    $.ajax({
-	// 	method:"GET",
-	// 	url: '/api/styles/'+styleId+'/schools',
-	// 	success: renderSchools
-	// })
+    $.ajax({
+		method:"GET",
+		url: '/api/styles/'+style+'/schools',
+		success: renderSchools
+	})
 
 }
 
@@ -221,53 +212,53 @@ function renderSchools(school) {
 }
 
 
-function renderAddschoolModal(styleId) {
-  let html = `
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Martial Arts School</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form class="school-form">
-      <div class="modal-body">
+// function renderAddschoolModal(styleId) {
+//   let html = `
+// <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+//   <div class="modal-dialog" role="document">
+//     <div class="modal-content">
+//       <div class="modal-header">
+//         <h5 class="modal-title" id="exampleModalLabel">Add Martial Arts School</h5>
+//         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//           <span aria-hidden="true">&times;</span>
+//         </button>
+//       </div>
+//       <form class="school-form">
+//       <div class="modal-body">
         
-          <div class="form-group">
-            <label for="recipient-name" class="form-control-label">School name</label>
-            <input type="text" class="form-control" name="name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="form-control-label">Address</label>
-             <input type="text" class="form-control" name="address">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="form-control-label">Link</label>
-            <input type="text" class="form-control" name="link">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="form-control-label">Image</label>
-            <input type="text" class="form-control" name="image">
-          </div>
+//           <div class="form-group">
+//             <label for="recipient-name" class="form-control-label">School name</label>
+//             <input type="text" class="form-control" name="name">
+//           </div>
+//           <div class="form-group">
+//             <label for="message-text" class="form-control-label">Address</label>
+//              <input type="text" class="form-control" name="address">
+//           </div>
+//           <div class="form-group">
+//             <label for="recipient-name" class="form-control-label">Link</label>
+//             <input type="text" class="form-control" name="link">
+//           </div>
+//           <div class="form-group">
+//             <label for="recipient-name" class="form-control-label">Image</label>
+//             <input type="text" class="form-control" name="image">
+//           </div>
 
 
        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary save-school" data-style-id="${styleId}">Save school</button>
-      </div>
-       </form>
-    </div>
-  </div>
-</div>
+//       </div>
+//       <div class="modal-footer">
+//         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+//         <button type="submit" class="btn btn-primary save-school" data-style-id="${styleId}">Save school</button>
+//       </div>
+//        </form>
+//     </div>
+//   </div>
+// </div>
 
-`
-$('body').append(html);
+// `
+// $('body').append(html);
 
-}
+// }
 
 
 
