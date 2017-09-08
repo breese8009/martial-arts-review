@@ -26,7 +26,7 @@ function index(req, res) {
     .exec(function(err, style) {
       if (err) {
         console.log(`school index(): err = ${err}`);
-        res.send(404);
+        res.sendStatus(404);
       }
       res.json(style.schools);
     });
@@ -40,7 +40,7 @@ function create(req, res) {
   db.School.create(req.body, function(err, newSchool) {
     if (err) {
       console.log(`school create() failed with err = ${err}`);
-      res.send(404);
+      res.sendStatus(404);
     }
 
     console.log(`new school ${newSchool} created`);
@@ -49,7 +49,7 @@ function create(req, res) {
     db.Style.findById(req.params.styleId, function(err, style) {
       if (err) {
         console.log(`could not find style id ${req.params.styleId} in db`);
-        res.send(404);
+        res.sendStatus(404);
       }
 
       console.log(`found style ${style} for new school ${newSchool}.`);
@@ -69,14 +69,14 @@ function update(req, res) {
   db.Style.findById(req.params.styleId, function(err, style) {
     if (err) {
       console.log(`failed to find style id({$req.params.styleId}) in db`);
-      res.send(404);
+      res.sendStatus(404);
     }
 
     console.log(`found style ${style} in db`);
     db.School.findById(req.params.schoolId, function(err, school) {
       if (err) {
         console.log(`failed to find school id (${req.params.schoolId}) in db`);
-        res.send(404);
+        res.sendstatus(404);
       }
 
       console.log(`found school ${school} in db`);
@@ -87,7 +87,7 @@ function update(req, res) {
       school.save(function(err, savedSchool) {
         if (err) {
           console.log(`failed to udpate school ${savedSchool} in db`);
-          res.send(404);
+          res.sendStatus(404);
         }
         console.log("school update(): successful");
         res.json(savedSchool);
@@ -104,7 +104,7 @@ function destroy(req, res) {
   db.Style.findById(req.params.styleId, function(err, style) {
     if (err) {
       console.log(`failed to fecth the style(id=${req.params.styleId}) from db`);
-      res.send(404);
+      res.sendStatus(404);
     }
 
     console.log(`found style ${style}) from db`);
@@ -122,7 +122,7 @@ function destroy(req, res) {
         db.School.findByIdAndRemove(req.params.schoolId, function(err, removedSchool) {
           if (err) {
             console.log(`failed to remove school id ${req.params.schoolId} from db`);
-            res.send(404);
+            res.sendStatus(404);
           }
 
           style.schools.splice(i, 1);  //remove the deleted school from style
