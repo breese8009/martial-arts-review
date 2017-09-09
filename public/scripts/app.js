@@ -8,7 +8,8 @@ $(document).ready(function() {
 		  		renderStyles(style);
 			renderListStyle(style);
 		  })
-			
+		  	$('.add-school').on('click', handleSchoolAddClick);
+
 		}
 	})
 
@@ -16,9 +17,11 @@ $(document).ready(function() {
 	$('.styleDisplay').on('click', '.delete-style', deletingStyle);
 	$('.styleDisplay').on('click', ".edit-style", handleStyleEditClick);
 	$('.styleDisplay').on('click', '.save-style', handleSaveStyleClick);
-	$('.forms').on('submit', addSchool);
-	$('.list-group-style').on('click', '.list-group-item', activeStyles)
+	$('.forms').on('submit', handleSaveSchoolClick);
+	$('.list-group-style').on('click', '.list-group-item', activeStyles);
 });
+
+
 
 
 function addingStyle(e) {
@@ -41,7 +44,7 @@ function addingStyle(e) {
 
 
 function renderStyles(style) {
-	console.log(style._id);
+	
 	let styleHtml = `
 	<!-- Style information -->
 
@@ -61,7 +64,7 @@ function renderStyles(style) {
 			</div>
 		</div>
 		<div>
-		<button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add school</button>
+		<button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" data-id="${style._id}">Add school</button>
 		</div>
 	</div>
 
@@ -88,12 +91,21 @@ function renderListStyle(style) {
 function activeStyles(e) {
     e.preventDefault();
     let style = $(this).data('id');
+    console.log(style);
     let currentElem = $('.list-group-item[data-id='+style+']');
     $(this).parent().children().removeClass("active");
     currentElem.addClass('active');
 
     $('.styleDisplay .styleClass').not('[data-styleid=' + style +']').fadeOut();
     $('.styleDisplay .styleClass[data-styleid=' + style +']').fadeIn();
+
+
+    $.ajax({
+    	method: "GET",
+    	url:'/api/styles'+style+'/schools',
+    	success: renderSchool
+    })
+
 
 }
 	
@@ -172,7 +184,7 @@ $.ajax({
 
 // schools app.js
 
-function addSchool(school) {
+function renderSchool(school) {
 	let html = `
 			<div class="list-group" data-id="${school._id}">
 <div class="card" style="width: 20rem;">
@@ -192,19 +204,27 @@ function addSchool(school) {
 
 
 
-function addSchool(e) {
+function handleSaveSchoolClick(e) {
 	e.preventDefault();
 
 	let formData = $(this).serialize();
-	
-// 	$.ajax({
-// 		method: "POST",
-// 		url: '/api/styles/:styleId/schools',
-// 		data: formData,
-// 		success: function(data) {
-// 			console.log(data);
-// 	}
-// })
+	let style = $(this).data('id');
+
+	$.ajax({
+		method: "POST",
+		url: '/api/styles/'+style+'/schools',
+		data: formData,
+		success: function(data) {
+			renderSchool(data);
+	}
+})
+}
+
+
+
+function handleSchoolAddClick() {
+	let styleId = $(this).attr('data-id');
+    $('.forms').attr('data-id', styleId)
 }
 
 
