@@ -57,9 +57,14 @@ function activeStyles(e) {
     $.ajax({
     	method: "GET",
     	url:'/api/styles/'+style+'/schools',
-    	success: function(styl){
-    		console.log(styl);
-    		renderSchool(styl);
+    	success: function(schools){
+    		console.log(schools);
+    		emptySchools();
+    		schools.forEach((el)=>{
+    		
+    		renderSchool(el);
+    		})
+    		
     	}
     })
 
@@ -271,6 +276,10 @@ console.log(styleId);
 }
 
 
+
+function emptySchools() {
+	$('#schoolsAppended').empty();
+}
 
 
 
