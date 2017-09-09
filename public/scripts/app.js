@@ -12,7 +12,8 @@ $(document).ready(function() {
 		  
 		}
 	})
-
+	$('#schoolsAppended').on('click', '.edit-school', handleSchoolEditClick)
+	$('#schoolsAppended').on('click', '.delete-school', handleSchoolDeleteClick)
 	//click event for  the add school button inside the modal
 	$('.add-school').on('click', handleSchoolAddClick);
 	//POST style elemnt
@@ -28,6 +29,8 @@ $(document).ready(function() {
 	//click event for when style list element is clicked, 
 	//give class active and shows only styles that match list element
 	$('.list-group-style').on('click', '.list-group-item', activeStyles);
+
+	$('.edit-school')
 });
 
 
@@ -60,11 +63,13 @@ function activeStyles(e) {
     	success: function(schools){
     		console.log(schools);
     		emptySchools();
-    		schools.forEach((el)=>{
-    		
+    		schools.forEach((el)=>{   		
     		renderSchool(el);
     		})
-    		
+    	},
+    	error: function(err) {
+    		console.log("error");
+    		console.log(err);
     	}
     })
 
@@ -192,19 +197,10 @@ $.ajax({
 	url: "/api/styles/"+styleId,
 	data: data,
 	success: function() {
-		window.location = window.location;
+		window.location.reload();
 	}
 })
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -219,15 +215,16 @@ $.ajax({
 function renderSchool(school) {
 
 	let html = `
-			<div class="list-group" data-id="${school._id}">
+			<div class="list-group school-select" data-id="${school._id}">
 <div class="card" style="width: 20rem;">
-  <img class="card-img-top" src="${school.image}" alt="Card image cap">
+  <img class="card-img-top school-image" src="${school.image}" alt="Card image cap">
   <div class="card-body">
-    <h4 class="card-title">${school.name}</h4>
-    <p class="card-text">Address:</p>
-    
-    <a href="#" class="btn btn-info">Edit</a>
-    <a href="#" class="btn btn-danger">Delete</a>
+    <h4 class="card-title school-name">${school.name}</h4>
+    <p class="card-text school-address">${school.address}</p>
+    <a href="#" class="btn btn-info school-link">Link</a>
+    <a href="#" class="btn btn-info edit-school">Edit</a>
+     <a href="#" class="btn btn-info save-school save-edit" data-id="${school._id}">Save</a>
+    <a href="#" class="btn btn-danger delete-school">Delete</a>
   </div>
 </div>
 </div>
@@ -236,6 +233,76 @@ function renderSchool(school) {
 	$('#schoolsAppended').append(html);
 
 }
+
+function handleSchoolDeleteClick(e) {
+	e.preventDefault();
+	console.log('clicked');
+	let schoolId = $(this).closest('.school-select').data('id');
+	// let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
+	// console.log(styleId)
+	console.log(schoolId);
+$.ajax({
+	method:"DELETE",
+	url:'/api/schools/'+schoolId,
+	success: function() {
+	console.log('works');
+		
+
+	},
+	error: function(err) {
+		console.log("this didnt work"+err)
+
+	}
+	})
+}
+
+
+function handleSchoolEditClick(e) {
+e.preventDefault();
+let styleId = $(this).attr("data-id");
+let styleElem = $(this).closest('.school-select');
+// $('#schoolsAppended').find('.school-image').val();
+let name = styleElem.find('.school-name').text();
+styleElem.find('.school-name').html('<input class="edit-style-name" value='+'"'+name+'"'+'/>');
+let address = styleElem.find('.school-address').text();
+styleElem.find('.school-address').html('<input class="edit-style-address" value='+'"'+address+'"'+'/>')
+
+let link = styleElem.find('.school-link').attr('href');
+styleElem.find('.school-link').html('<input class="edit-style-link" value='+'"'+link+'"'+'/>')
+
+let image = styleElem.find('.school-image').attr('src');
+styleElem.find('.school-image').html('<input class="edit-style-name" value='+'"'+image+'"'+'/>')
+
+// $(this).toggleClass('save-edit');
+$('.save-school[data-id='+styleId+"]").toggleClass('save-edit')
+console.log(styleId);
+console.log(link)
+}
+
+
+
+// function editSchool(e) {
+// e.preventDefault();
+// let styleId = $('.list-group-item.active').data('id');
+// let schoolId = $(this).closest('.school-select').data('id')
+// let styleElem = $(this).closest('.school-select');
+// console.log(styleElem)
+
+// let data = {
+// 	name: styleElem.find('.edit-school-name').val(),
+// 	address: styleElem.find('.edit-school-address').val(),
+// 	// link: styleElem.find('.edit-school-comm').val(),
+// 	image: styleElem.find('.edit-school-image').val()
+// }
+
+// $.ajax({
+// 	method:"PUT",
+// 	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
+// 	success: function(data) {
+// 		console.log(data);
+// 	}
+// })
+// }
 
 
 
@@ -264,6 +331,7 @@ function handleSaveSchoolClick(e) {
 	let formData = $(this).serialize();
 	let styleId = $('.list-group-item.active').data('id');
 console.log(styleId);
+
 	$.ajax({
 		method: "POST",
 		url: '/api/styles/'+styleId+'/schools',
