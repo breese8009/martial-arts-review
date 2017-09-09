@@ -33,8 +33,8 @@ app.get('/', function homepage(req, res) {
  * ROUTES
  */
 
- //api ROUTE (JSON)
- app.get('/api', controllers.api.index); //get all the endpoints and return in JSON format
+//api ROUTE (JSON)
+app.get('/api', controllers.api.index); //get all the endpoints and return in JSON format
 
 //style ROUTES
 app.get('/api/styles', controllers.styles.index); // get all styles
@@ -47,8 +47,8 @@ app.delete('/api/styles/:styleId', controllers.styles.destroy); // delete a styl
 app.get('/api/schools', controllers.schools.getallschools);
 app.get('/api/styles/:styleId/schools', controllers.schools.index); //get all schools of a style
 app.post('/api/styles/:styleId/schools', controllers.schools.create); //create a school for a style
-app.put('/app/styles/:styleId/schools/:schoolId', controllers.schools.update); //edit a school of the specified style
-app.delete('/app/styles/:styleId/schools/:schoolId', controllers.schools.destroy); //delete a school of the specified style
+app.put('/api/styles/:styleId/schools/:schoolId', controllers.schools.update); //edit a school of the specified style
+app.delete('/api/styles/:styleId/schools/:schoolId', controllers.schools.destroy); //delete a school of the specified style
 
 /**********
  * SERVER *
