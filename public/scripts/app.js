@@ -104,8 +104,8 @@ function renderStyles(style) {
 
 	<div class="card-header styleClass" data-styleid="${style._id}"><h1>${style.type}</h1>
 		<div class="card-body-style">
-			<p class="card-title style-desc">${style.description}</p>
-			<p class="card-text style-comm">${style.comments}</p>
+			<p class="card-title style-desc"><span><b>Description:</b></span><br>${style.description}</p>
+			<p class="card-text style-comm"><span><b>Comments: </b></span> <br> ${style.comments}</p>
 			<p class="card-text style-link"><a href="${style.link}"></a></p>
 			<div class="row">
 				<div class="col-sm-2">
@@ -213,7 +213,7 @@ $.ajax({
 // renders the schools to html
 
 function renderSchool(school) {
-
+console.log(school);
 	let html = `
 			<div class="list-group school-select" data-id="${school._id}">
 <div class="card" style="width: 20rem;">
@@ -221,7 +221,8 @@ function renderSchool(school) {
   <div class="card-body">
     <h4 class="card-title school-name">${school.name}</h4>
     <p class="card-text school-address">${school.address}</p>
-    <a href="${school.link}" class="btn btn-info school-link">Link</a>
+     <p class="card-text school-reviews"><span><b>Comments:</b></span><br>${school.reviews}</p>
+      <a href="${school.link}" class="btn btn-info school-link">Link</a>
     <a href="#" class="btn btn-info edit-school">Edit</a>
      <a href="#" class="btn btn-info save-school save-edit" data-id="${school._id}">Save</a>
     <a href="#" class="btn btn-danger delete-school">Delete</a>
@@ -274,11 +275,14 @@ styleElem.find('.school-link').html('<input class="edit-style-link" value='+'"'+
 let image = styleElem.find('.school-image').attr('src');
 styleElem.find('.school-image').html('<input class="edit-style-name" value='+'"'+image+'"'+'/>')
 
+let reviews = styleElem.find('.school-reviews').text();
+styleElem.find('.school-reviews').html('<input class="edit-style-name" value='+'"'+reviews+'"'+'/>')
 // $(this).toggleClass('save-edit');
 $('.save-school[data-id='+styleId+"]").toggleClass('save-edit')
 console.log(styleId);
 console.log(link)
 }
+
 
 
 
