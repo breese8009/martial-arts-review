@@ -221,7 +221,7 @@ function renderSchool(school) {
   <div class="card-body">
     <h4 class="card-title school-name">${school.name}</h4>
     <p class="card-text school-address">${school.address}</p>
-    <a href="#" class="btn btn-info school-link">Link</a>
+    <a href="${school.link}" class="btn btn-info school-link">Link</a>
     <a href="#" class="btn btn-info edit-school">Edit</a>
      <a href="#" class="btn btn-info save-school save-edit" data-id="${school._id}">Save</a>
     <a href="#" class="btn btn-danger delete-school">Delete</a>
@@ -237,15 +237,16 @@ function renderSchool(school) {
 function handleSchoolDeleteClick(e) {
 	e.preventDefault();
 	console.log('clicked');
-	let schoolId = $(this).closest('.school-select').data('id');
-	// let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
-	// console.log(styleId)
+	let schoolId = $('#schoolsAppended').find('.school-select').data('id');
+	
+	let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
+	console.log(styleId)
 	console.log(schoolId);
 $.ajax({
 	method:"DELETE",
-	url:'/api/schools/'+schoolId,
+	url:'/api/styles/'+styleId+'/schools/'+schoolId,
 	success: function() {
-	console.log('works');
+	$('[data-id='+schoolId+"]").remove();
 		
 
 	},
@@ -281,28 +282,28 @@ console.log(link)
 
 
 
-// function editSchool(e) {
-// e.preventDefault();
-// let styleId = $('.list-group-item.active').data('id');
-// let schoolId = $(this).closest('.school-select').data('id')
-// let styleElem = $(this).closest('.school-select');
-// console.log(styleElem)
+function editSchool(e) {
+e.preventDefault();
+let styleId = $('.list-group-item.active').data('id');
+let schoolId = $(this).closest('.school-select').data('id')
+let styleElem = $(this).closest('.school-select');
+console.log(styleElem)
 
-// let data = {
-// 	name: styleElem.find('.edit-school-name').val(),
-// 	address: styleElem.find('.edit-school-address').val(),
-// 	// link: styleElem.find('.edit-school-comm').val(),
-// 	image: styleElem.find('.edit-school-image').val()
-// }
+let data = {
+	name: styleElem.find('.edit-school-name').val(),
+	address: styleElem.find('.edit-school-address').val(),
+	// link: styleElem.find('.edit-school-comm').val(),
+	image: styleElem.find('.edit-school-image').val()
+}
 
-// $.ajax({
-// 	method:"PUT",
-// 	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
-// 	success: function(data) {
-// 		console.log(data);
-// 	}
-// })
-// }
+$.ajax({
+	method:"PUT",
+	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
+	success: function(data) {
+		console.log(data);
+	}
+})
+}
 
 
 

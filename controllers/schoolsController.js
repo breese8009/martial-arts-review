@@ -146,6 +146,8 @@ function destroy(req, res) {
 }
 
 
+
+
 module.exports = {
   getallschools: getallschools,
   index: index,
