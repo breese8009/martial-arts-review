@@ -49,7 +49,6 @@ function renderListStyle(style) {
 function activeStyles(e) {
     e.preventDefault();
     let style = $(this).data('id');
-    console.log(style);
     let currentElem = $('.list-group-item[data-id='+style+']');
     $(this).parent().children().removeClass("active");
     currentElem.addClass('active');
@@ -235,28 +234,33 @@ console.log(school);
 
 }
 
+
 function handleSchoolDeleteClick(e) {
-	e.preventDefault();
-	console.log('clicked');
-	let schoolId = $('#schoolsAppended').find('.school-select').data('id');
-	
-	let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
-	console.log(styleId)
-	console.log(schoolId);
+e.preventDefault();
+console.log('clicked');
+let schoolId = $('#schoolsAppended').find('.school-select').data('id');
+let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
+console.log(styleId)
+console.log(schoolId);
 $.ajax({
-	method:"DELETE",
-	url:'/api/styles/'+styleId+'/schools/'+schoolId,
-	success: function() {
-	$('[data-id='+schoolId+"]").remove();
-		
+method:"DELETE",
+url:'/api/styles/'+styleId+'/schools/'+schoolId,
+success: function() {
+$('[data-id='+schoolId+"]").remove();
 
-	},
-	error: function(err) {
-		console.log("this didnt work"+err)
 
-	}
-	})
+},
+error: function(err) {
+console.log("this didnt work"+err)
+
 }
+})
+}
+
+
+
+
+
 
 
 function handleSchoolEditClick(e) {
@@ -321,7 +325,8 @@ function handleSchoolAddClick() {
     	method:"POST",
     	url: '/api/schools',
     	success: function(style) {
-    		console.log(style)
+    		console.log(style);
+
     	}
     })
 }
@@ -344,8 +349,10 @@ console.log(styleId);
 		success: function(school) {
 			console.log(school);
 			renderSchool(school);
+
 	}
 })
+
 }
 
 
