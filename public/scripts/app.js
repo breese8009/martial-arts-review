@@ -34,7 +34,14 @@ $(document).ready(function() {
 	//what to do when save is clicked after making edits click event
 	$('#schoolsAppended').on('click','.save-school-edit', handleSaveEditSchool);
 	// $('#schoolsAppended').on('click', '.save-school-edit', )
+	$('.save-school').on('click', hideModal);
+	
 });
+
+function hideModal(e) {
+	$('#exampleModal').modal('hide');
+}
+
 
 
 ////////////
@@ -66,8 +73,10 @@ function renderStyles(style) {
 
 	<div class="card-header styleClass" data-styleid="${style._id}"><h1>${style.type}</h1>
 		<div class="card-body-style">
-			<p class="card-title style-desc"><span><b>Description:</b></span><br>${style.description}</p>
-			<p class="card-text style-comm"><span><b>Comments: </b></span> <br> ${style.comments}</p>
+		<label><b>Description:</b></label>
+			<p class="card-title style-desc">${style.description}</p>
+			<label><b>Comments:</b></label>
+			<p class="card-text style-comm">${style.comments}</p>
 			<p class="card-text style-link"><a href="${style.link}">Watch video</a></p>
 			<div class="row">
 				<div class="col-sm-2">
@@ -136,6 +145,7 @@ function addingStyle(e) {
 		success: function(style) {
 			renderStyles(style);
 			renderListStyle(style);
+			$('.addStyles').trigger('reset')
 		}
 	})
 }
@@ -210,8 +220,11 @@ $.ajax({
 	method: "PUT",
 	url: "/api/styles/"+styleId,
 	data: data,
-	success: function() {
-		// window.location.reload();
+	success: function(style) {
+		
+	// styleElem.remove();
+		// renderStyles(style);
+
 	}
 })
 }
@@ -234,7 +247,9 @@ console.log(school);
   <div class="card-body">
     <h4 class="card-title school-name school-name">${school.name}</h4>
     <p class="card-text school-address school-address">${school.address}</p>
-     <p class="card-text school-reviews school-reviews"><span><b>Comments:</b></span><br>${school.reviews}</p>
+    <label><b>Comments</b></label>
+     <p class="card-text school-reviews school-reviews">${school.reviews}</p>
+
       <a href="${school.link}" class="btn btn-info school-link .edit-school-link">Link</a>
     <a href="#" class="btn btn-info school">Edit</a>
      <a href="#" class="btn btn-info save-school-edit save-edit" data-id="${school._id}">Save</a>
@@ -252,10 +267,11 @@ console.log(school);
 
 function handleSaveEditSchool(e) {
 e.preventDefault();
+
 let styleId = $('.list-group-item.active').data('id');
 let schoolId = $(this).closest('.school-select').data('id')
 let styleElem = $(this).closest('.school-select');
-console.log(styleId)
+
 
 let data = {
 	name: styleElem.find('.edit-school-name').val(),
@@ -264,14 +280,19 @@ let data = {
 	image: styleElem.find('.edit-school-image').val()
 
 }
-console.log(data.name);
 
+let schoolElem = $(this).closest('.school-select');
 $.ajax({
 	method:"PUT",
 	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
 	data: data,
-	success: function() {
+	success: function(school) {
+		console.log(school)
 		// window.location.reload();
+		// saveBtn.toggleClass('save-edit');
+schoolElem.remove();
+renderSchool(school);
+
 
 	},
 	error: function(err) {
@@ -315,7 +336,9 @@ function handleSchoolEditClick(e) {
 e.preventDefault();
 let styleId = $(this).attr("data-id");
 let styleElem = $(this).closest('.school-select');
-// $('#schoolsAppended').find('.school-image').val();
+let schoolId = $(this).closest('.school-select');
+
+$('#schoolsAppended').find('.school-image').val();
 let name = styleElem.find('.school-name').text();
 styleElem.find('.school-name').html('<input class="edit-school-name" value='+'"'+name+'"'+'/>');
 let address = styleElem.find('.school-address').text();
@@ -333,6 +356,7 @@ styleElem.find('.school-reviews').html('<input class="edit-school-reviews" value
 
 $(this).toggleClass('save-edit')
 $('.save-school-edit').toggleClass('save-edit');
+// $('.save-school-edit[data-id='+schoolId+']').toggleClass('save-edit');
 
 }
 
@@ -359,6 +383,7 @@ function handleSchoolAddClick() {
 //saves school and post
 function handleSaveSchoolClick(e) {
 	e.preventDefault();
+	console.log('got here');
 	let formData = $(this).serialize();
 	let styleId = $('.list-group-item.active').data('id');
 console.log(styleId);
@@ -370,9 +395,10 @@ console.log(styleId);
 		success: function(school) {
 			console.log(school);
 			renderSchool(school);
-
 	}
 })
+
+
 
 }
 
