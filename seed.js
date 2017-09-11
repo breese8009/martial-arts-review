@@ -32,12 +32,12 @@ stylesList.push({
 console.log(stylesList);
 
 db.School.remove({}, function(err, school) {
-  if (err) {
-    console.log("failed to wipe out schools from seeding.js");
-  }
-  else {
-    console.log("successfully wiped out all schools from seeding.js");
-  }
+ if (err) {
+   console.log("failed to wipe out schools from seeding.js");
+ }
+ else {
+   console.log("successfully wiped out all schools from seeding.js");
+ }
 });
 
 db.Style.remove({}, function(err, styles) {

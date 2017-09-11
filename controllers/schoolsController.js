@@ -13,6 +13,7 @@ function getallschools(req, res) {
       console.log(`school getallschools(): found no school in db`);
       res.sendStatus(404);
     }
+
     res.json(schools);
   });
 }
@@ -28,6 +29,7 @@ function index(req, res) {
         console.log(`school index(): err = ${err}`);
         res.sendStatus(404);
       }
+
       res.json(style.schools);
     });
 }
@@ -44,6 +46,8 @@ function create(req, res) {
     }
 
     console.log(`new school ${newSchool} created`);
+
+
 
     //search the db for the style we want to add the new school to
     db.Style.findById(req.params.styleId, function(err, style) {
@@ -141,6 +145,8 @@ function destroy(req, res) {
     }
   });
 }
+
+
 
 
 module.exports = {

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Martial arts Review</title>
-
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- STYLESHEETS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
@@ -22,9 +22,6 @@
 <!-- Stylesheet link -->
   <link rel="stylesheet" href="/styles/style.css">
 
-
-
-
 <!-- app.js  -->
   <script src="/scripts/app.js"></script>
 
@@ -33,30 +30,33 @@
 
 <header>
 
-
+<div class="container">
 <!-- adding style inside header -->
 <div class="container">
-<h1 class="h1Header">Martial Arts School Reviews</h1>
+<div class="row">
+<h1 class="h1Header">Martial Arts Styles & Schools</h1>
+<iframe src="https://giphy.com/embed/rDXL1b57kFeAU" width="100" height="100" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/satisfying-nunchucks-rDXL1b57kFeAU"></a></p>
+</div>
 <form class="addStyles">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputEmail4" class="col-form-label headerFormLabel">Type of Martial Arts</label>
-      <input type="text" class="form-control headerForm" name="type" placeholder="Type">
+      <label for="inputEmail4" class="col-form-label headerFormLabel">Martial Arts Style</label>
+      <input type="text" class="form-control headerForm" name="type" placeholder="">
     </div>
     <div class="form-group col-md-6">
-      <label for="inputPassword4" class="col-form-label headerFormLabel">Wikipedia Link</label>
-      <input type="text" class="form-control headerForm" name="link" placeholder="Link">
+      <label for="inputPassword4" class="col-form-label headerFormLabel">Youtube Link</label>
+      <input type="text" class="form-control headerForm" name="link" placeholder="">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputAddress" class="col-form-label headerFormLabel">Description of Art</label>
-    <input type="text" class="form-control headerForm" name="description" placeholder="Description">
+    <label for="inputAddress" class="col-form-label headerFormLabel">Description of Style</label>
+    <input type="text" class="form-control headerForm" name="description" placeholder="">
   </div>
   <div class="form-group">
-    <label for="inputAddress2" class="col-form-label headerFormLabel">Comments</label>
-    <input type="text" class="form-control headerForm" name="comments" placeholder="Type of art">
+    <label for="inputAddress2" class="col-form-label headerFormLabel">Comments About Style</label>
+    <input type="text" class="form-control headerForm" name="comments" placeholder="">
   </div>
-  <button type="submit" class="btn btn-primary">Create style</button>
+  <button type="submit" class="btn btn-primary create-new-style">Create style</button>
 </form>
 </div>
 </header>
@@ -68,8 +68,8 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-<h1>Martial Arts Styles</h1>
-<hr>
+<h1>Styles</h1>
+
 <div class="list-group-style">
 <!--   <a href="#" class="list-group-item active">
    Muay Thai
@@ -106,8 +106,8 @@
 
 </div>
 <div class="col-sm-6 appendedSchool">
-<h1>Martial Arts Schools</h1>
-<hr>
+<h1>Schools</h1>
+
 <div id="schoolsAppended"></div>
 <!-- <div class="list-group">
 <div class="card" style="width: 20rem;">
@@ -173,13 +173,17 @@
             <label for="recipient-name" class="form-control-label">Image</label>
             <input type="text" class="form-control" name="image">
           </div>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Comments</label>
+            <textarea type="text" class="form-control" name="reviews">hello world</textarea>
+          </div>
 
 
        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary add-school">Add school</button>
+        <button type="submit" class="btn btn-primary save-school">save school</button>
       </div>
        </form>
     </div>
@@ -189,11 +193,27 @@
 
 <!-- homepage footer -->
 <footer>
-  <div class="container">
-    <div class="col-sm-3">
-      <h3>Bryan & Chen</h3>
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-4 iconColor">
+         <i class="fa fa-code fa-5x" aria-hidden="true"></i>
+       
+         <h3>Coded By:</h3>
+         <h5>Bryan<br>&<br>Chen</h5>
+      </div>
+      <div class="col-sm-4 iconColor">
+       <i class="fa fa-github fa-5x" aria-hidden="true"></i>
+      
+       <h3><a href="https://github.com/breese8009/martial-arts-review">Check this project out on Github</a></h3>
+      </div>
+      <div class="col-sm-4 iconColor">
+        <iframe src="https://giphy.com/embed/Tl5joLnF6PI1G" width="150" height="150" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/ninja-Tl5joLnF6PI1G">Find somewhere to train</a></p>
+      </div>
     </div>
-  </div>
+     
+    </div>
 </footer>
+</div>
+
 </body>
 </html>

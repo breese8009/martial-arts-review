@@ -6,6 +6,7 @@ let SchoolSchema = new Schema({
   address: String,
   link: String,
   image: String,
+  reviews: String
 });
 
 let School = mongoose.model("School", SchoolSchema);
