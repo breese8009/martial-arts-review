@@ -1,9 +1,8 @@
 //Display all the available endpoints
 function index(req, res) {
   res.json({
-    message: "Welcome to Martial Arts Review!",
-    message: "Welcome to my personal favorite birds api! Here's what you need to know!",
-    documentationUrl: "https://github.com/breese8009/martial-arts-review/README.md",
+    message: "Welcome to Martial Arts Styles and Schools App! Here are some informations:",
+    documentationUrl: "https://github.com/breese8009/martial-arts-review/blob/master/README.md",
     baseUrl: "https://github.com/breese8009/martial-arts-review/",
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
