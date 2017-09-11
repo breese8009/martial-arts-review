@@ -255,31 +255,31 @@ e.preventDefault();
 let styleId = $('.list-group-item.active').data('id');
 let schoolId = $(this).closest('.school-select').data('id')
 let styleElem = $(this).closest('.school-select');
-console.log($(this).closest('.card-body').find('.edit-school-image'))
+console.log(styleId)
 
-// let data = {
-// 	name: styleElem.find('.edit-school-name').val(),
-// 	address: styleElem.find('.edit-school-address').val(),
-// 	link: styleElem.find('.edit-school-link').val(),
-// 	image: styleElem.find('.edit-school-image').val()
+let data = {
+	name: styleElem.find('.edit-school-name').val(),
+	address: styleElem.find('.edit-school-address').val(),
+	link: styleElem.find('.edit-school-link').val(),
+	image: styleElem.find('.edit-school-image').val()
 
-// }
-// console.log(data.name);
+}
+console.log(data.name);
 
-// $.ajax({
-// 	method:"PUT",
-// 	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
-// 	data: data,
-// 	success: function() {
-// 		// window.location.reload();
+$.ajax({
+	method:"PUT",
+	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
+	data: data,
+	success: function() {
+		// window.location.reload();
 
-// 	},
-// 	error: function(err) {
-// console.log('not updating edit');
-// console.log(err);
-// 	}
+	},
+	error: function(err) {
+console.log('not updating edit');
+console.log(err);
+	}
 
-// })
+})
 }
 
 
@@ -288,8 +288,8 @@ console.log($(this).closest('.card-body').find('.edit-school-image'))
 function handleSchoolDeleteClick(e) {
 e.preventDefault();
 console.log('clicked');
-let schoolId = $('#schoolsAppended').find('.school-select').data('id');
-let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
+let schoolId = $(this).closest('.school-select').data('id');
+let styleId = $('.list-group-item.active').data('id');
 
 $.ajax({
    method:"DELETE",
