@@ -3,6 +3,9 @@ header {
 	background-image: url("https://images.alphacoders.com/174/thumb-1920-174041.jpg");
 
 }
+body {
+	background-color:#E6E7E8;
+}
 
 .headerFormLabel {
 	color:white;
@@ -46,12 +49,6 @@ hr {
 	border:2px black solid;
 }
 
-footer {
-	height:100px;
-	background-color: blue;
-	color:white;
-}
-
 .add-school {
 	width:100%;
 }
@@ -64,6 +61,20 @@ footer {
 	display:none;
 }
 
+.card-body {
+	margin-bottom:10px;
+}
+
+
+footer {
+	height:300px;
+	background-image: url('http://www.thebrasilians.com/wp-content/uploads/2016/08/footer-background-011.jpg');
+}
+
+.iconColor {
+	color:white;
+	text-align: center;
+}
 
 
 

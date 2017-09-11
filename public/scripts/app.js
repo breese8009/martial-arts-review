@@ -12,8 +12,10 @@ $(document).ready(function() {
 		  
 		}
 	})
-	$('#schoolsAppended').on('click', '.edit-school', handleSchoolEditClick)
-	$('#schoolsAppended').on('click', '.delete-school', handleSchoolDeleteClick)
+
+	//edit/delete event handlers
+	$('#schoolsAppended').on('click', '.school', handleSchoolEditClick);
+	$('#schoolsAppended').on('click', '.delete-school', handleSchoolDeleteClick);
 	//click event for  the add school button inside the modal
 	$('.add-school').on('click', handleSchoolAddClick);
 	//POST style elemnt
@@ -29,9 +31,16 @@ $(document).ready(function() {
 	//click event for when style list element is clicked, 
 	//give class active and shows only styles that match list element
 	$('.list-group-style').on('click', '.list-group-item', activeStyles);
-
-	$('.edit-school')
+	//what to do when save is clicked after making edits click event
+	$('#schoolsAppended').on('click','.save-school-edit', handleSaveEditSchool);
+	// $('#schoolsAppended').on('click', '.save-school-edit', )
 });
+
+
+////////////
+//STYLES!//
+///////////       
+///////////
 
 
 //renders list elements to html
@@ -45,11 +54,49 @@ function renderListStyle(style) {
 
 
 
-//give class active to list element when selected, also posts schools
+
+
+
+
+//renders appended data and elements to html
+function renderStyles(style) {
+	
+	let styleHtml = `
+	<!-- Style information -->
+
+	<div class="card-header styleClass" data-styleid="${style._id}"><h1>${style.type}</h1>
+		<div class="card-body-style">
+			<p class="card-title style-desc"><span><b>Description:</b></span><br>${style.description}</p>
+			<p class="card-text style-comm"><span><b>Comments: </b></span> <br> ${style.comments}</p>
+			<p class="card-text style-link"><a href="${style.link}">Watch video</a></p>
+			<div class="row">
+				<div class="col-sm-2">
+					<button class="btn-danger delete-style" data-id="${style._id}">Delete</button>
+				</div>
+				<div class="col-sm-2">
+					<button class="btn-info edit-style" data-id="${style._id}">Edit</button>
+					<button class="btn-info save-style save-edit" data-id="${style._id}">Save</button>
+				</div>
+			</div>
+		</div>
+		<div>
+		<button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" data-id="${style._id}">Add school</button>
+		</div>
+	</div>
+
+	`
+
+	$('.styleDisplay').prepend(styleHtml);
+}
+
+//give class active to list element when selected, also gets schools and renders them schools
 function activeStyles(e) {
     e.preventDefault();
+    //get style id
     let style = $(this).data('id');
+    //get current element
     let currentElem = $('.list-group-item[data-id='+style+']');
+    //adding and removing active class from list elements
     $(this).parent().children().removeClass("active");
     currentElem.addClass('active');
 
@@ -95,42 +142,6 @@ function addingStyle(e) {
 
 
 
-//renders appended data and elements to html
-function renderStyles(style) {
-	
-	let styleHtml = `
-	<!-- Style information -->
-
-	<div class="card-header styleClass" data-styleid="${style._id}"><h1>${style.type}</h1>
-		<div class="card-body-style">
-			<p class="card-title style-desc"><span><b>Description:</b></span><br>${style.description}</p>
-			<p class="card-text style-comm"><span><b>Comments: </b></span> <br> ${style.comments}</p>
-			<p class="card-text style-link"><a href="${style.link}"></a></p>
-			<div class="row">
-				<div class="col-sm-2">
-					<button class="btn-danger delete-style" data-id="${style._id}">Delete</button>
-				</div>
-				<div class="col-sm-2">
-					<button class="btn-info edit-style" data-id="${style._id}">Edit</button>
-					<button class="btn-info save-style save-edit" data-id="${style._id}">Save</button>
-				</div>
-			</div>
-		</div>
-		<div>
-		<button type="button" class="btn btn-primary add-school" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" data-id="${style._id}">Add school</button>
-		</div>
-	</div>
-
-	`
-
-	$('.styleDisplay').prepend(styleHtml);
-}
-
-
-
-
-	
-
 	// deletes style 
 function deletingStyle(e) {
 	e.preventDefault();
@@ -150,9 +161,8 @@ $.ajax({
 }
 
 
+
 //handles edit button click on style element
-
-
 function handleStyleEditClick(e) {
 let styleId = $(this).attr("data-id");
 let styleElem = $(this).closest('.styleClass');
@@ -168,7 +178,8 @@ let comm = styleElem.find('.style-comm').text();
 styleElem.find('.style-comm').html('<input class="edit-style-comm" value='+'"'+comm+'"'+'/>');
 
 
-let link = styleElem.find('.style-link').text();
+let link = styleElem.find('.style-link').attr('styleid');
+console.log(link);
 styleElem.find('.style-link').html('<input class="edit-style-link" value='+'"'+link+'"'+'/>');
 
 //toggle between edit button and save button after edit is clicked
@@ -185,28 +196,31 @@ $('.save-style[data-id='+styleId+']').toggleClass('save-edit');
 function handleSaveStyleClick(e) {
 let styleId = $(this).attr("data-id");
 let styleElem = $(this).closest('.styleClass');
+console.log(styleElem);
+console.log(styleElem.find('.edit-style-type'));
 let data = {
 	type: styleElem.find('.edit-style-type').val(),
 	description: styleElem.find('.edit-style-desc').val(),
 	comments: styleElem.find('.edit-style-comm').val(),
 	link: styleElem.find('.edit-style-link').val()
 }
+console.log(data.type);
+
 $.ajax({
 	method: "PUT",
 	url: "/api/styles/"+styleId,
 	data: data,
 	success: function() {
-		window.location.reload();
+		// window.location.reload();
 	}
 })
 }
 
 
-
-
-
-
-
+////////////
+//SCHOOLS!//
+///////////       
+///////////
 
 
 // renders the schools to html
@@ -218,12 +232,12 @@ console.log(school);
 <div class="card" style="width: 20rem;">
   <img class="card-img-top school-image" src="${school.image}" alt="Card image cap">
   <div class="card-body">
-    <h4 class="card-title school-name">${school.name}</h4>
-    <p class="card-text school-address">${school.address}</p>
-     <p class="card-text school-reviews"><span><b>Comments:</b></span><br>${school.reviews}</p>
-      <a href="${school.link}" class="btn btn-info school-link">Link</a>
-    <a href="#" class="btn btn-info edit-school">Edit</a>
-     <a href="#" class="btn btn-info save-school save-edit" data-id="${school._id}">Save</a>
+    <h4 class="card-title school-name school-name">${school.name}</h4>
+    <p class="card-text school-address school-address">${school.address}</p>
+     <p class="card-text school-reviews school-reviews"><span><b>Comments:</b></span><br>${school.reviews}</p>
+      <a href="${school.link}" class="btn btn-info school-link .edit-school-link">Link</a>
+    <a href="#" class="btn btn-info school">Edit</a>
+     <a href="#" class="btn btn-info save-school-edit save-edit" data-id="${school._id}">Save</a>
     <a href="#" class="btn btn-danger delete-school">Delete</a>
   </div>
 </div>
@@ -235,23 +249,57 @@ console.log(school);
 }
 
 
+
+function handleSaveEditSchool(e) {
+e.preventDefault();
+let styleId = $('.list-group-item.active').data('id');
+let schoolId = $(this).closest('.school-select').data('id')
+let styleElem = $(this).closest('.school-select');
+console.log($(this).closest('.card-body').find('.edit-school-image'))
+
+// let data = {
+// 	name: styleElem.find('.edit-school-name').val(),
+// 	address: styleElem.find('.edit-school-address').val(),
+// 	link: styleElem.find('.edit-school-link').val(),
+// 	image: styleElem.find('.edit-school-image').val()
+
+// }
+// console.log(data.name);
+
+// $.ajax({
+// 	method:"PUT",
+// 	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
+// 	data: data,
+// 	success: function() {
+// 		// window.location.reload();
+
+// 	},
+// 	error: function(err) {
+// console.log('not updating edit');
+// console.log(err);
+// 	}
+
+// })
+}
+
+
+
+
 function handleSchoolDeleteClick(e) {
 e.preventDefault();
 console.log('clicked');
 let schoolId = $('#schoolsAppended').find('.school-select').data('id');
 let styleId = $('.styleDisplay').find('.styleClass').data('styleid');
-console.log(styleId)
-console.log(schoolId);
-$.ajax({
-method:"DELETE",
-url:'/api/styles/'+styleId+'/schools/'+schoolId,
-success: function() {
-$('[data-id='+schoolId+"]").remove();
 
+$.ajax({
+   method:"DELETE",
+   url:'/api/styles/'+styleId+'/schools/'+schoolId,
+   success: function() {
+   	$('[data-id='+schoolId+"]").remove();
 
 },
-error: function(err) {
-console.log("this didnt work"+err)
+	error: function(err) {
+		console.log("this didnt work"+err)
 
 }
 })
@@ -269,51 +317,24 @@ let styleId = $(this).attr("data-id");
 let styleElem = $(this).closest('.school-select');
 // $('#schoolsAppended').find('.school-image').val();
 let name = styleElem.find('.school-name').text();
-styleElem.find('.school-name').html('<input class="edit-style-name" value='+'"'+name+'"'+'/>');
+styleElem.find('.school-name').html('<input class="edit-school-name" value='+'"'+name+'"'+'/>');
 let address = styleElem.find('.school-address').text();
-styleElem.find('.school-address').html('<input class="edit-style-address" value='+'"'+address+'"'+'/>')
+styleElem.find('.school-address').html('<input class="edit-school-address" value='+'"'+address+'"'+'/>')
 
 let link = styleElem.find('.school-link').attr('href');
-styleElem.find('.school-link').html('<input class="edit-style-link" value='+'"'+link+'"'+'/>')
+styleElem.find('.school-link').html('<input class="edit-school-link" value='+'"'+link+'"'+'/>')
 
 let image = styleElem.find('.school-image').attr('src');
-styleElem.find('.school-image').html('<input class="edit-style-name" value='+'"'+image+'"'+'/>')
+styleElem.find('.school-image').html('<input class="edit-school-image" value='+'"'+image+'"'+'/>')
 
 let reviews = styleElem.find('.school-reviews').text();
-styleElem.find('.school-reviews').html('<input class="edit-style-name" value='+'"'+reviews+'"'+'/>')
+styleElem.find('.school-reviews').html('<input class="edit-school-reviews" value='+'"'+reviews+'"'+'/>')
 // $(this).toggleClass('save-edit');
-$('.save-school[data-id='+styleId+"]").toggleClass('save-edit')
-console.log(styleId);
-console.log(link)
+
+$(this).toggleClass('save-edit')
+$('.save-school-edit').toggleClass('save-edit');
+
 }
-
-
-
-
-function editSchool(e) {
-e.preventDefault();
-let styleId = $('.list-group-item.active').data('id');
-let schoolId = $(this).closest('.school-select').data('id')
-let styleElem = $(this).closest('.school-select');
-console.log(styleElem)
-
-let data = {
-	name: styleElem.find('.edit-school-name').val(),
-	address: styleElem.find('.edit-school-address').val(),
-	// link: styleElem.find('.edit-school-comm').val(),
-	image: styleElem.find('.edit-school-image').val()
-}
-
-$.ajax({
-	method:"PUT",
-	url: '/api/styles/'+ styleId+'/schools/'+schoolId,
-	success: function(data) {
-		console.log(data);
-	}
-})
-}
-
-
 
 
 
@@ -335,7 +356,7 @@ function handleSchoolAddClick() {
 
 
 
-
+//saves school and post
 function handleSaveSchoolClick(e) {
 	e.preventDefault();
 	let formData = $(this).serialize();
@@ -357,6 +378,7 @@ console.log(styleId);
 
 
 
+//function used to empty schools
 function emptySchools() {
 	$('#schoolsAppended').empty();
 }
