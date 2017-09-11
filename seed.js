@@ -7,7 +7,7 @@ var stylesList =[];
 stylesList.push({
               type: 'Muay Thai',
               link: '#',
-              description: 'This is a stand up type fights style, using knees, elboes, and kicks',
+              description: 'This is a stand up type fights style, using knees, elbows, and kicks',
               comments: 'Rough/painful style'
             });
 stylesList.push({
@@ -49,4 +49,4 @@ db.Style.remove({}, function(err, styles) {
     console.log("Seeding styleList successful");
     process.exit();
   });
-})
+});

@@ -13,7 +13,8 @@ function getallschools(req, res) {
       console.log(`school getallschools(): found no school in db`);
       res.sendStatus(404);
     }
-    console.log(res.json(schools));
+
+    res.json(schools);
   });
 }
 
@@ -28,7 +29,7 @@ function index(req, res) {
         console.log(`school index(): err = ${err}`);
         res.sendStatus(404);
       }
-      console.log(style);
+
       res.json(style.schools);
     });
 }

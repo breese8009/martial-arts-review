@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/martialArtsReview");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/martialArtsReview");
 
 module.exports = {
   Style: require("./style"),

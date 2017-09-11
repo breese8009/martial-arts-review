@@ -238,8 +238,8 @@ $.ajax({
 
 // renders the schools to html
 
+
 function renderSchool(school) {
-console.log(school);
 	let html = `
 			<div class="list-group school-select" data-id="${school._id}">
 <div class="card" style="width: 20rem;">
