@@ -29,7 +29,7 @@ While each of the schools have the following informations:
 * Validation to make sure the same school is not added to the same style more than once
 * Enhancement to allow a school to be added to more than one style(e.g. a school may teach both Aikido and Judo)
 
-See more API endpoint information [here](https://github.com/breese8009/martial-arts-review/api)
+See more API endpoint information [here](https://github.com/breese8009/martial-arts-review/)
 
 See Heroku link [here](https://fast-eyrie-61495.herokuapp.com/)
 
