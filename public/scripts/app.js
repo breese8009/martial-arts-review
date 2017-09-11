@@ -8,8 +8,8 @@ $(document).ready(function() {
 		  		renderStyles(style);
 			renderListStyle(style);
 		  })
-		  	
-		  
+
+
 		}
 	})
 
@@ -28,14 +28,14 @@ $(document).ready(function() {
 	$('.styleDisplay').on('click', '.save-style', handleSaveStyleClick);
 	//on submit of the form of modal
 	$('.forms').on('submit', handleSaveSchoolClick);
-	//click event for when style list element is clicked, 
+	//click event for when style list element is clicked,
 	//give class active and shows only styles that match list element
 	$('.list-group-style').on('click', '.list-group-item', activeStyles);
 	//what to do when save is clicked after making edits click event
 	$('#schoolsAppended').on('click','.save-school-edit', handleSaveEditSchool);
 	// $('#schoolsAppended').on('click', '.save-school-edit', )
 	$('.save-school').on('click', hideModal);
-	
+
 });
 
 function hideModal(e) {
@@ -46,7 +46,7 @@ function hideModal(e) {
 
 ////////////
 //STYLES!//
-///////////       
+///////////
 ///////////
 
 
@@ -67,7 +67,7 @@ function renderListStyle(style) {
 
 //renders appended data and elements to html
 function renderStyles(style) {
-	
+
 	let styleHtml = `
 	<!-- Style information -->
 
@@ -118,7 +118,7 @@ function activeStyles(e) {
     	success: function(schools){
     		console.log(schools);
     		emptySchools();
-    		schools.forEach((el)=>{   		
+    		schools.forEach((el)=>{
     		renderSchool(el);
     		})
     	},
@@ -133,7 +133,7 @@ function activeStyles(e) {
 
 
 
-//adds style element and appended data 
+//adds style element and appended data
 function addingStyle(e) {
 	e.preventDefault();
 	let formData = $(this).serialize();
@@ -152,7 +152,7 @@ function addingStyle(e) {
 
 
 
-	// deletes style 
+	// deletes style
 function deletingStyle(e) {
 	e.preventDefault();
 let styleId = $(this).attr("data-id");
@@ -221,7 +221,7 @@ $.ajax({
 	url: "/api/styles/"+styleId,
 	data: data,
 	success: function(style) {
-		
+
 	// styleElem.remove();
 		// renderStyles(style);
 
@@ -232,7 +232,7 @@ $.ajax({
 
 ////////////
 //SCHOOLS!//
-///////////       
+///////////
 ///////////
 
 
@@ -398,7 +398,7 @@ console.log(styleId);
 	}
 })
 
-
+  $(this).trigger("reset");
 
 }
 
@@ -408,9 +408,3 @@ console.log(styleId);
 function emptySchools() {
 	$('#schoolsAppended').empty();
 }
-
-
-
-
-
-
