@@ -8,6 +8,7 @@ let db = require("../models");
 //    controllers.styles.index
 function index(req, res) {
   db.Style.find({}, function(err, foundStyles) {
+     console.log("this is styles u logged", foundStyles);
     res.json(foundStyles);
   });
 }
@@ -25,8 +26,9 @@ function create(req, res) {
       console.log("style created failed");
       res.sendStatus(404);
     }
-
+    console.log("this is req.body", req.body);
     console.log(`successfully created a style: ${createdStyle}`);
+
     res.json(createdStyle);
   });
 }
